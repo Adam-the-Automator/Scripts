@@ -1,0 +1,30 @@
+# The specification version of docker-compose
+version: "3.9"
+# The collection of containers making up your application
+services:
+  # The NGINX custom container
+  web:
+    # Instead of referencing image: nginx:mainline-alpine here, use build to
+    # reference the current directory (.) and will look for a dockerfile by default
+    build: .
+    # The external directory location to map to an internal location
+    volumes:
+      - C:\Articles\NGINX-Content:/usr/share/nginx/html
+    # The external port mapping to internal port mapping
+    ports:
+      - "80:80"
+  node:
+    image: node:current-alpine
+    # Override the existing entrypoint to tell Node to execute the index.js file
+    entrypoint: ['node','/usr/share/nginx/html/index.js']
+    ports:
+      - "3000:3000"
+    # It is important that all containers can reference the same files
+    volumes:
+      - C:\Articles\NGINX-Content:/usr/share/nginx/html
+  php:
+    image: php:fpm-alpine
+    ports:
+      - "9000:9000"
+    volumes:
+      - C:\Articles\NGINX-Content:/usr/share/nginx/html

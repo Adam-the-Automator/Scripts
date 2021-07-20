@@ -1,0 +1,24 @@
+# The specification version of docker-compose
+version: "3.9"
+# The collection of applications composing this service
+services:
+  # The NGINX custom container, and the name, web, will function as the host name of the container
+  web:
+    # Instead of referencing image: nginx:mainline-alpine here, use build to
+    # reference the current directory (.), which will look for a dockerfile
+    # by default. In this tutorial, this is C:\Articles\NGINX-PHP
+    build: .
+    # The external directory location to map to an internal location
+    volumes:
+      - C:\Articles\NGINX-Content:/usr/share/nginx/html
+    # The external port mapping to internal port mapping
+    ports:
+      - "80:80"
+  # The name, php, will also function as the host name of the container
+  php:
+    image: php:fpm-alpine
+    ports:
+      - "9000:9000"
+    # It is important that both containers can reference the same files
+    volumes:
+      - C:\Articles\NGINX-Content:/usr/share/nginx/html
