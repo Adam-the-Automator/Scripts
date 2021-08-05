@@ -71,7 +71,7 @@ function Set-RegistryValueForAllUsers {
             }
             
             ## Build the registry value to use for Active Setup which is the command to create the registry value in all user hives
-            $ActiveSetupValue = "reg add "{0}" /v {1} /t {2} /d {3} /f" -f "HKCU\$($instance.Path)", $instance.Name, $RegValueType, $instance.Value
+            $ActiveSetupValue = 'reg add "{0}" /v {1} /t {2} /d {3} /f' -f "HKCU\$($instance.Path)", $instance.Name, $RegValueType, $instance.Value
             Write-Verbose -Message "Active setup value is '$ActiveSetupValue'"
             ## Create the necessary Active Setup registry values
             Set-ItemProperty -Path $ActiveSetupRegPath -Name '(Default)' -Value 'Active Setup Test' -Force
