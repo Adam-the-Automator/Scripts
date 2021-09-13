@@ -1,0 +1,17 @@
+[LEMP2004]
+altruistic-bug ansible_host=10.0.15.108
+
+[LEMP2004:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/ctmcisco/.ssh/key/mykey
+
+[LEMP1804]
+deft-wildcat ansible_host=10.0.15.112
+
+[LEMP1804:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/ctmcisco/.ssh/key/mykey1804
+ 
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+

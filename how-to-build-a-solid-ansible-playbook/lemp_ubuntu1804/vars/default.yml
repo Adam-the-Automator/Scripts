@@ -1,0 +1,5 @@
+---
+mysql_root_password: "p@ssw0rd"
+http_host: "deft-wildcat"
+http_conf: "deft-wildcat.conf"
+http_port: "80"
