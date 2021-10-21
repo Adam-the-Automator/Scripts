@@ -1,32 +1,34 @@
-# deployment version
+# The deployment version, with a default value of 0.0, CodeDeploy will automatically increment this value on each successful deployment
 version: 0.0
 
-# operating system running on target compute resource
+# The operating system running on the target compute resource.
+# For EC2 instances using Ubuntu, RHEL, or Linux Amazon Machine Images (AMI) use Linux as the value.
 os: linux
 
-# file to copy on each deployment
+# A list of files to copy on each deployment.
 files:
-# Directory to copy in each application revision
-- source: /
-destination: /app
+  # A directory to copy in each application revision, if only a "/" is used for the source, all files in that directory are copied.
+  - source: /
+    destination: /app
 
-# section for defining the scripts to be run on Lifecycle events
+# The "hooks" section defines the scripts to be run on each Lifecycle event.
+# The hook events are run in the following order: "BeforeInstall", "ApplicationStop", "ApplicationStart", "ValidateService"
 hooks:
+  # Prior to installation steps, run the following actions.
+  BeforeInstall:
+    # The location for the "install_docker.sh" script to install Docker and docker-compose.
+    - location: config/install_docker.sh
+      # Run the CodeDploy agent with root permissions.
+      runas: root
 
-BeforeInstall:
- # location to bash script for installing docker and docker-compose
-- location: config/install_docker.sh
-# grant the code deploy agent root permission
-runas: root
+  # Run the lifecycle event to stop the application via the defined script.
+  ApplicationStop:
+    - location: config/stop-app.sh
+      timeout: 2000
+      runas: root
 
-# lifecycle event with script to start application
-ApplicationStart:
-  - location: config/start-app.sh
-timeout: 3600
-runas: root
-
-# lifecycle event with script to stop running application
-ApplicationStop:
-- location: config/stop-app.sh
-timeout: 2000
-runas: root
+  # Run the lifecycle event to start the application via the defined script.
+  ApplicationStart:
+    - location: config/start-app.sh
+      timeout: 3600
+      runas: root
