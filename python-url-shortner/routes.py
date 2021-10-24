@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import datetime
 import shortuuid
 import os
+from requests import get
 
 app = FastAPI()
 client = MongoClient(os.environ.get('MONGO_URI'))
@@ -37,10 +38,15 @@ class UrlModel(BaseModel):
 # Insert long_url to database
 @app.post("/shorty")
 def url(url: UrlModel, response: Response):
-    print(url)
     if url is not None and type(url.url) == str:
         url_id = shortuuid.uuid()
-        short_url = "http://localhost:8000/{0}".format(url_id)
+
+        """
+        Retrieve the External Public IP of whatever machine is running python app.
+        This is done temporarily so that the application can redirect back to the shortened URL. Permanent fix is to setup DNS routing
+        """ 
+        etxernalIp = get('https://api.ipify.org').content.decode('utf8')
+        short_url = "http://{0}:8000/{1}".format(etxernalIp, url_id)
 
         data = {
             "long_url": url.url,

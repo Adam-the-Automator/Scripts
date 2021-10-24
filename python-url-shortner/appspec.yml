@@ -6,27 +6,27 @@ os: linux
 
 # file to copy on each deployment
 files:
-# Directory to copy in each application revision
-- source: /
-destination: /app
+  # Directory to copy in each application revision
+  - source: /
+    destination: /app
+file_exists_behavior: OVERWRITE
 
 # section for defining the scripts to be run on Lifecycle events
 hooks:
+  BeforeInstall:
+     # location to bash script for installing docker and docker-compose
+    - location: install_docker.sh
+      # grant the code deploy agent root permission
+      runas: root
 
-BeforeInstall:
- # location to bash script for installing docker and docker-compose
-- location: config/install_docker.sh
-# grant the code deploy agent root permission
-runas: root
+  # lifecycle event with script to start application
+  ApplicationStart:
+    - location: start-app.sh
+      timeout: 3600
+      runas: root
 
-# lifecycle event with script to start application
-ApplicationStart:
-  - location: config/start-app.sh
-timeout: 3600
-runas: root
-
-# lifecycle event with script to stop running application
-ApplicationStop:
-- location: config/stop-app.sh
-timeout: 2000
-runas: root
+  # lifecycle event with script to stop running application
+  ApplicationStop:
+    - location: stop-app.sh
+      timeout: 2000
+      runas: root
