@@ -18,13 +18,13 @@
 
 # Define the Nginx Configuration
 # Task #2
-    - name: Sets Nginx conf file
+    - name: Setting the NGINX conf file
       template:
         src: "files/nginx.conf.j2"
         dest: "/etc/nginx/sites-available/{{ http_conf }}"
 
 # Task #3
-    - name: Enables new site
+    - name: Enabling new site
       file:
         src: "/etc/nginx/sites-available/{{ http_conf }}"
         dest: "/etc/nginx/sites-enabled/{{ http_conf }}"
@@ -32,7 +32,7 @@
       notify: Reload Nginx
 
 # Task #4
-    - name: Removes "default" site
+    - name: Removing "default" site
       file:
         path: "/etc/nginx/sites-enabled/default"
         state: absent
@@ -41,7 +41,7 @@
 
 # Define the MySQL Configuration
 # Task #5
-    - name: Sets the root password 
+    - name: Settting the root password 
       mysql_user: 
         name: root 
         password: "{{ mysql_root_password }}"
@@ -49,7 +49,7 @@
         
         
 # Task #6
-    - name: Removes all anonymous user accounts
+    - name: Removing all anonymous user accounts
       mysql_user:
         name: ''
         host_all: yes
@@ -58,7 +58,7 @@
         login_password: "{{ mysql_root_password }}"
 
 # Task #7
-    - name: Removes the MySQL test database
+    - name: Removing the MySQL test database
       mysql_db: 
         name: test 
         state: absent
@@ -75,7 +75,7 @@
 
 # Configuring the PHP Info Page
 # Task #9
-    - name: PHP the PHP Info Page
+    - name: Configuring the PHP Info Page
       template:
         src: "files/info.php.j2"
         dest: "/var/www/html/info.php"
@@ -86,8 +86,3 @@
       service:
         name: nginx
         state: reloaded
-
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
