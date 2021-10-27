@@ -17,18 +17,18 @@ hooks:
   # Prior to installation steps, run the following actions.
   BeforeInstall:
     # The location for the "install_docker.sh" script to install Docker and docker-compose.
-    - location: config/install_docker.sh
+    - location: install_docker.sh
       # Run the CodeDploy agent with root permissions.
       runas: root
 
   # Run the lifecycle event to stop the application via the defined script.
   ApplicationStop:
-    - location: config/stop-app.sh
+    - location: stop.sh
       timeout: 2000
       runas: root
 
   # Run the lifecycle event to start the application via the defined script.
   ApplicationStart:
-    - location: config/start-app.sh
+    - location: start.sh
       timeout: 3600
       runas: root
