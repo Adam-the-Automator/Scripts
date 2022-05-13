@@ -1,0 +1,79 @@
+# Separate directives from document content.
+# Signals the start of a document if no directives are present.
+--- 
+- hosts: all # Sets the playbook to run on all hosts.
+  become: true # Tells Ansible to run all tasks as the root user.
+  vars: # Sets variables
+    # Defines how many containers to deploy
+    container_count: 4
+    # Define the name and image of the container to deploy.
+    default_container_name: docker
+    default_container_image: ubuntu
+    # Defines the command to run inside the container.
+    default_container_command: sleep 1d
+
+  # Define tasks Ansible will take action upon
+  tasks:
+    # Install aptitude package manager for Debian-based systems
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    # Install packages essential for running a developer environment 
+    # on a Debian-based system.
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    # Sets key used to verify your install packages are from an authorized source.
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    # Sets repository containing packages needed to install
+    # and run Docker on a Debian-based system.
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    # Installs Docker community edition
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    # Installs Docker Module for Python.
+    # Allows you to manage Docker containers from within Ansible playbooks.
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    # Pulls the default docker image (Ubuntu)
+    - name: Pull default Docker image
+      community.docker.docker_image:
+        name: "{{ default_container_image }}"
+        source: pull
+
+    # Create four containers on each managed host using default image and command.
+    - name: Create default containers
+      community.docker.docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        image: "{{ default_container_image }}"
+        command: "{{ default_container_command }}"
+        state: present
+      # Tells Ansible to repeat tasks for each item in the container_count variable
+      with_sequence: count={{ container_count }}
