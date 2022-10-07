@@ -1,0 +1,15 @@
+name: Matrix Strategy Include Sample2
+on: push
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        run: ['run1', 'run2']
+        include:
+          - run: 'run3'
+    steps:
+    - run: echo Run ${{ matrix.run }}
+    - run: date
+    - run: sleep 1
+    - run: date

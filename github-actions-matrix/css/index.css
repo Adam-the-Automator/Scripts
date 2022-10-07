@@ -1,0 +1,171 @@
+*{
+    background-color: #1c1424;
+    margin: 0;
+    padding: 0;
+    color: #d6d6d6;
+    font-family: 'Recursive', sans-serif;
+}
+
+.left h1{
+    font-size: 60px;
+    margin:160px 0 0 20px ;
+}
+
+.left p{
+    margin-left: 20px;
+}
+
+.left button{
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+    margin-left: 20px;
+    border: 1px white solid;
+}
+
+.right h4{
+    margin-top: 80px;
+}
+
+.right form{
+    height: 75vh;
+    background-color: #342b47;
+    width:30vw;
+    margin: 20px 0 0 70px;
+    clear: both;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.right form input{
+    width: 100%;
+    border-radius: 6px;
+    height: 40px;
+    padding: 8px;
+    border: none;
+    margin-bottom: 10px;
+}
+ 
+
+.right form div{
+    width: 100%;
+    margin-bottom: 10px;
+    height: 50px;
+    padding: 30px 10px 0 10px;
+}
+
+.color1{
+    background-color: #4a142d;
+}
+.color2{
+    background-color: #8c0d28;
+}
+
+.color3{
+    background-color: mediumblue;
+}
+
+@media screen and (max-width:1024px){
+    
+.left h1{
+    font-size: 50px;
+    margin:160px 0 0 10px ;
+}
+
+.left p{
+    margin-left: 10px;
+}
+
+.left button{
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+    margin-left: 10px;
+    border: 1px white solid;
+}
+
+.right h4{
+    margin-top: 80px;
+}
+
+.right form{
+    height: 40vh;
+    background-color: #342b47;
+    width: 40vw;
+    margin: 20px 0 0 70px;
+    clear: both;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.right form input{
+    width: 100%;
+    border-radius: 6px;
+    height: 40px;
+    padding: 8px;
+    border: none;
+    margin-bottom: 10px;
+}
+ 
+
+.right form div{
+    width: 100%;
+    margin-bottom: 10px;
+    height: 50px;
+    padding: 30px 10px 0 10px;
+}
+
+    
+}
+
+@media screen and (max-width:480px){
+    
+.left h1{
+    font-size: 30px;
+    margin:160px 0 0 10px ;
+}
+
+.left p{
+    margin-left: 10px;
+}
+
+.left button{
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+    margin-left: 10px;
+    border: 1px white solid;
+}
+
+.right h4{
+    margin-top: 80px;
+}
+
+.right form{
+    height: 65vh;
+    background-color: #342b47;
+    width: 90vw;
+    margin: 20px 0 0 10px;
+    clear: both;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.right form input{
+    width: 100%;
+    border-radius: 6px;
+    height: 40px;
+    padding: 8px;
+    border: none;
+    margin-bottom: 10px;
+}
+ 
+
+.right form div{
+    width: 100%;
+    margin-bottom: 10px;
+    height: 50px;
+    padding: 30px 10px 0 10px;
+}
+  
+}

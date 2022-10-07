@@ -1,0 +1,15 @@
+
+name: Matrix Strategy Max-Parallel Sample
+on: push
+jobs:
+  example_matrix:
+    strategy:
+      max-parallel: 4
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [10, 12, 14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.version }}

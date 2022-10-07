@@ -1,0 +1,16 @@
+name: Sample Should Fail Run 1 Only
+on: push
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        run: ['run1', 'run2']
+    steps:
+    - run: echo Run ${{ matrix.run }} 
+    - run: date
+    - name: Exit early if matrix run is run1
+      run: '[ "${{ matrix.run }}" = "run1" ] && exit 1 || echo "continue"'
+    - run: sleep 5 # Sleep to make sure all process that don't match above check don't finish before the one that will exit
+    - run: date
